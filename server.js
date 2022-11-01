@@ -1,5 +1,6 @@
 const express = require(`express`)
 const path = require(`path`)
+const database = require('./db/db');
 
 const app = express();
 
@@ -19,6 +20,37 @@ app.get('/', (req, res) => {
 );
 
 
-  app.listen(PORT, () =>
-  console.log(`Example app listening at http://localhost:${PORT}`)
-);
+app.post('/notes', (req, res) => {
+  
+res.json(`${req.method} request received to upvote`);
+
+const { title, text} = req.body;
+
+  // Check if there is anything in the response body
+  if (title && text) {
+    const newNote = {
+      title,
+      text,
+    };
+    
+    readAndAppend(newNote, './db/db.json');
+
+    const response = {
+      status: 'success',
+      body: newNote,
+    };
+
+    res.json(response);
+} else {
+
+  res.json('Error in making new note');
+}
+
+
+
+
+ 
+});
+
+app.listen(PORT, () =>
+console.log(`Example app listening at http://localhost:${PORT}`))
