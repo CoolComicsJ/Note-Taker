@@ -26,7 +26,7 @@ res.json(`${req.method} request received to upvote`);
 
 const { title, text} = req.body;
 
-  // Check if there is anything in the response body
+
   if (title && text) {
     const newNote = {
       title,
